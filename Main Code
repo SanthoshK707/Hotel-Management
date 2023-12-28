@@ -4,7 +4,7 @@ import time
 import tkinter as tk
 from tkinter import messagebox
 
-def star_button_click():
+def start_button_click():
     sign()
     time.sleep(1)
     root.destroy()
@@ -23,7 +23,7 @@ and creating lasting happy memories during your stay in our hotel. If there's an
 us to arrange or if you have any special requests, please don't hesitate to contact us.\n\n
 Please click on Start to proceed.""", font=("Verdana", 15), fg="white", bg="black", justify='left')
 heading_label.pack(pady=20)
-star_button = tk.Button(root, text="Start",font=("Verdana", 17), command=star_button_click, fg="white", bg="black", width=20, justify='center',relief="raised")
+star_button = tk.Button(root, text="Start",font=("Verdana", 17), command=start_button_click, fg="white", bg="black", width=20, justify='center',relief="raised")
 star_button.pack()
 
 def sign():
