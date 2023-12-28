@@ -1,0 +1,374 @@
+import random
+import datetime
+import time
+import tkinter as tk
+from tkinter import messagebox
+
+def star_button_click():
+    sign()
+    time.sleep(1)
+    root.destroy()
+root = tk.Tk()
+root.title("DTS Hotel Booking")
+root.configure(bg="black")
+root.state('zoomed')
+heading_label = tk.Label(root, text="DTS Hotel Booking", font=("Verdana", 25), fg="white", bg="black", justify='center')
+heading_label.pack(pady=20)
+heading_label = tk.Label(root, text="""Dear User,\n
+Greetings from DTS! We are thrilled to extend a warm welcome to you as our esteemed guest for your upcoming stay.\n
+Thank you for choosing us as your preferred destination for accommodation, and we are excited to make your stay\n
+with us a truly memorable experience. At DTS, we understand that every guest is unique,and we are dedicated\n
+to ensuring your comfort and satisfaction throughout your stay. We look forward to exceeding your expectations\n
+and creating lasting happy memories during your stay in our hotel. If there's anything specific you'd like\n
+us to arrange or if you have any special requests, please don't hesitate to contact us.\n\n
+Please click on Start to proceed.""", font=("Verdana", 15), fg="white", bg="black", justify='left')
+heading_label.pack(pady=20)
+star_button = tk.Button(root, text="Start",font=("Verdana", 17), command=star_button_click, fg="white", bg="black", width=20, justify='center',relief="raised")
+star_button.pack()
+
+def sign():
+    aname=[]
+    aage=[]
+    auserid=[]
+    apassword=[]
+    def on_signup_click():
+        name = name_entry.get()
+        aname.append(name)
+        age = age_entry.get()
+        aage.append(age)
+        userid = signup_userid_entry.get()
+        auserid.append(userid)
+        password = signup_password_entry.get()
+        apassword.append(password)
+        if len(name) < 2:
+            messagebox.showerror("Error", "Name should contain atleast 3 letters.")
+            return
+        if not age.isdigit():
+            messagebox.showerror("Error","Age should be in number.")
+            return
+        if int(age) < 18 or int(age)> 120:
+            messagebox.showerror("Error", "Enter the correct age.")
+            return
+        if len(userid) < 1 or len(password) < 1:
+            messagebox.showerror("Error", "Email Id or Password should not be empty!!!")
+            return
+        if "@" not in userid or ".com" not in userid:
+            messagebox.showerror("Error", "Invalid Email Id. Enter a valid Email Id.")
+            return
+        if len(password)<8:
+            messagebox.showerror("Error","Password should be least 8 characters.")
+            return
+        messagebox.showinfo("Signup", "Signup successful")
+        main_menu()
+        time.sleep(1)
+        root.destroy()
+        
+    def show_password():
+        current_state = signup_password_entry.cget("show")
+        new_state = "" if current_state else "*"
+        signup_password_entry.config(show=new_state)
+    root = tk.Tk()
+    root.title("DTS Hotel Booking")
+    root.configure(bg="black")
+    root.state('zoomed')
+    signup_frame = tk.Frame(root, bg="black")
+    signup_frame.place(relx=0.5, rely=0.5, anchor="center")
+    signup_label = tk.Label(signup_frame, text="Signup", font=("Verdana", 25, "bold"), bg="black", fg="white")
+    signup_label.grid(row=0, column=0, columnspan=2, pady=10)
+    name_label = tk.Label(signup_frame,text="Name:", font=("Verdana", 20), bg="black", fg="white")
+    name_label.grid(row=1, column=0, pady=10, padx=10, sticky="w")
+    name_entry = tk.Entry(signup_frame, font=("Verdana", 20))
+    name_entry.grid(row=1, column=1, pady=10, padx=10)
+    age_label = tk.Label(signup_frame,text="Age:", font=("Verdana", 20), bg="black", fg="white")
+    age_label.grid(row=2, column=0, pady=10, padx=10, sticky="w")
+    age_entry = tk.Entry(signup_frame, font=("Verdana", 20))
+    age_entry.grid(row=2, column=1, pady=10, padx=10)
+    signup_userid_label = tk.Label(signup_frame, text="Email Id:", font=("Verdana", 20), bg="black", fg="white")
+    signup_userid_label.grid(row=3, column=0, pady=10, padx=10, sticky="w")
+    signup_userid_entry = tk.Entry(signup_frame, font=("Verdana", 20))
+    signup_userid_entry.grid(row=3, column=1, pady=10, padx=10)
+    signup_password_label = tk.Label(signup_frame, text="Password:", font=("Verdana", 20), bg="black", fg="white")
+    signup_password_label.grid(row=4, column=0, pady=10, padx=10, sticky="w")
+    signup_password_entry = tk.Entry(signup_frame, show="*", font=("Verdana", 20))
+    signup_password_entry.grid(row=4, column=1, pady=10, padx=10)
+    show_password_checkbox = tk.Checkbutton(signup_frame, text="Show Password", command=show_password,font=("Verdana", 20), bg="white", fg="black", indicatoron=False, relief="raised")
+    show_password_checkbox.grid(row=6, column=0, columnspan=2, pady=10)
+    signup_button = tk.Button(signup_frame, text="Signup", font=("Verdana", 20), command=on_signup_click,bg="black", fg="white", relief="raised")
+    signup_button.grid(row=7, column=0, columnspan=2, pady=10)
+    
+    def main_menu():
+        root = tk.Tk()
+        root.title("DTS Hotel Booking")
+        root.configure(bg="black")
+        root.state('zoomed')
+        mainmenu_frame = tk.Frame(root, bg="black")
+        mainmenu_frame.place(relx=0.5, rely=0.5, anchor="center")
+        mainmenu_label = tk.Label(mainmenu_frame, text="MAIN MENU", font=("Verdana", 25, "bold"), bg="black", fg="white")
+        mainmenu_label.grid(row=2, column=0, columnspan=2, pady=10)
+        booking_room_button = tk.Button(mainmenu_frame, text="BOOKING ROOMS", font=("Verdana", 20), command=start_hotel_management,bg="black", fg="white", relief="raised")
+        booking_room_button.grid(row=4, column=0, columnspan=2, pady=10, sticky="w")
+        room_det_button = tk.Button(mainmenu_frame, text="ROOM DETAILS", font=("Verdana", 20), command=room_det,bg="black", fg="white", relief="raised")
+        room_det_button.grid(row=6, column=0, columnspan=2, pady=10, sticky="w")
+        account_det_button = tk.Button(mainmenu_frame, text="ACCOUNT DETAILS", font=("Verdana", 20), command=account_det,bg="black", fg="white", relief="raised")
+        account_det_button.grid(row=8, column=0, columnspan=2, pady=10, sticky="w")
+        contact_det_button = tk.Button(mainmenu_frame, text="CONTACT DETAILS", font=("Verdana", 20), command=contact_det,bg="black", fg="white", relief="raised")
+        contact_det_button.grid(row=10, column=0, columnspan=2, pady=10, sticky="w")
+        
+    def room_det():
+        root = tk.Tk()
+        root.title("DTS Hotel Booking")
+        root.configure(bg="black")
+        root.state('zoomed')
+        roomdet_frame = tk.Frame(root, bg="black")
+        roomdet_frame.place(relx=0.5, rely=0.5, anchor="center")
+        roomdet_label = tk.Label(roomdet_frame, text="ROOM DETAILS", font=("Verdana", 25, "bold"), bg="black", fg="white")
+        roomdet_label.grid(row=0, column=0, columnspan=2, pady=10)
+        room_det1_label = tk.Label(roomdet_frame, text="""
+            1)STANDARD NON-AC
+            Room amenities include: 1 Double Bed, Television, Telephone,
+            Double-Door Cupboard, 1 Coffee table with 2 sofa, Balcony and
+            an attached washroom with hot/cold water.
+            ---------------------------------------------------------------
+            2)STANDARD NON-AC
+            Room amenities include: 1 Double Bed, Television, Telephone,
+            Double-Door Cupboard, 1 Coffee table with 2 sofa, Balcony and
+            an attached washroom with hot/cold water + Window/Split AC.
+            ---------------------------------------------------------------
+            3)3-Bed NON-AC
+            Room amenities include: 1 Double Bed + 1 Single Bed, Television,
+            Telephone, a Triple-Door Cupboard, 1 Coffee table with 2 sofa,
+            Side table, Balcony with an Accent table with 2 Chair and an
+            attached washroom with hot/cold water.
+            ---------------------------------------------------------------
+            4)3-Bed AC
+            Room amenities include: 1 Double Bed + 1 Single Bed, Television,
+            Telephone, a Triple-Door Cupboard, 1 Coffee table with 2 sofa,
+            1 Side table, Balcony with an Accent table with 2 Chair and an
+            attached washroom with hot/cold water + Window/Split AC.
+            ---------------------------------------------------------------""",font=("Verdana", 15), fg="white", bg="black")
+        room_det1_label.grid(row=2, column=0, columnspan=2, pady=10, sticky="w")
+        
+    def account_det():
+        root = tk.Tk()
+        root.title("DTS Hotel Booking")
+        root.configure(bg="black")
+        root.state('zoomed')
+        accountdet_frame = tk.Frame(root, bg="black")
+        accountdet_frame.place(relx=0.5, rely=0.5, anchor="center")
+        accountdet_label = tk.Label(accountdet_frame, text="ACCOUNT DETAILS", font=("Verdana", 25, "bold"), bg="black", fg="white")
+        accountdet_label.grid(row=0, column=0, columnspan=2, pady=10)
+        account_det_label = tk.Label(accountdet_frame, text=aname, font=("Verdana", 18), fg="white", bg="black", justify='left')
+        account_det_label.grid(row=2,column=0, columnspan=2, pady=10, sticky="w")
+        account_det_label = tk.Label(accountdet_frame, text=aage, font=("Verdana", 18), fg="white", bg="black", justify='left')
+        account_det_label.grid(row=4,column=0, columnspan=2, pady=10, sticky="w")
+        account_det_label = tk.Label(accountdet_frame, text=auserid, font=("Verdana", 18), fg="white", bg="black", justify='left')
+        account_det_label.grid(row=6,column=0, columnspan=2, pady=10, sticky="w")
+        account_det_label = tk.Label(accountdet_frame, text=apassword, font=("Verdana", 18), fg="white", bg="black", justify='left')
+        account_det_label.grid(row=8,column=0, columnspan=2, pady=10, sticky="w")
+        
+    def contact_det():
+        root = tk.Tk()
+        root.title("DTS Hotel Booking")
+        root.configure(bg="black")
+        root.state('zoomed')
+        contactdet_frame = tk.Frame(root, bg="black")
+        contactdet_frame.place(relx=0.5, rely=0.5, anchor="center")
+        contactdet_label = tk.Label(contactdet_frame, text="CONTACT DETAILS", font=("Verdana", 25, "bold"), bg="black", fg="white")
+        contactdet_label.grid(row=0, column=0, columnspan=2, pady=10)
+        contact_det_label = tk.Label(contactdet_frame, text='''
+    Email Id:             dts_hotel@gmail.com\n
+    Phone Number:   044 2242 0627\n
+    Address:             12, Kannai Street,\n
+                               Madipakkam, Chennai-600091\n
+              ''', font=("Verdana", 18), fg="white", bg="black", justify='left')
+        contact_det_label.grid(row=3,column=0, columnspan=2, pady=10, sticky="w")
+        
+def start_hotel_management():
+    root = tk.Tk()
+    root.title("DTS Hotel Booking")
+    root.configure(bg="black")
+    root.state('zoomed')
+    name = []
+    phno = []
+    add = []
+    perno=[]
+    checkin = []
+    checkout = []
+    data = []
+    room = []
+    price = []
+    rc = []
+    p = []
+    roomno = []
+    custid = []
+    day = []
+    fb = []
+    i=0
+    
+    def date_validator(date_str):
+        try:
+            datetime.datetime.strptime(date_str, '%d/%m/%Y')
+            return True
+        except ValueError:
+            clear_fields()
+            return False
+        
+    def booking():
+        i=1
+        a=name_entry.get()
+        name.append(a)
+        data.append(a)
+        b=phno_entry.get()
+        phno.append(b)
+        data.append(b)
+        c=add_entry.get()
+        add.append(c)
+        data.append(c)
+        d=perno_entry.get()
+        perno.append(d)
+        data.append(d)
+        cii = checkin_entry.get()
+        data.append(cii)
+        coo = checkout_entry.get()
+        data.append(coo)
+        if not (name[i - 1] and phno[i - 1] and add[i - 1] and date_validator(cii) and date_validator(coo)):
+            messagebox.showerror("Error", "Please fill in all fields and use a valid date format (dd/mm/yyyy).")
+            i -= 1
+            return
+        if not len(a)>3 or type(a)=="str":
+            messagebox.showerror("Name Error","Name should be more than 3 letters.")
+            return
+        if not len(b)==10 or type(b)=="int":
+            messagebox.showerror("Phone number Error","Phone number should be 10 digit.")
+            return
+        if int(d) not in [1,2,3,4]:
+            messagebox.showerror("Error","Only 4 Person are allowed in one Room.")
+            return
+        checkin.append(cii)
+        checkout.append(coo)
+        currentdate=str(datetime.datetime.now())
+        findate=currentdate[0:11]
+        if str(datetime.datetime.strptime(cii,'%d/%m/%Y'))<str(findate):
+            messagebox.showerror("Date Error","Invalid Check-In Date")
+        else:
+            ci = datetime.datetime.strptime(cii, '%d/%m/%Y')
+            if coo>cii:
+                co = datetime.datetime.strptime(coo, '%d/%m/%Y')
+                d = (co - ci).days
+                day.append(d)
+                room_type = room_type_var.get()
+                room.append(room_type)
+                price.append(room_prices[room_type])
+                room_no = random.randint(300, 399)
+                roomno.append(room_no)
+                customer_id = random.randint(10, 49)
+                custid.append(customer_id)
+                rc.append(0)
+                p.append(0)
+                messagebox.showinfo("Success", "Room booked successfully!\nRoom No.: {}\nCustomer ID: {}\nContinue to Payment ".format(room_no, customer_id))
+            else:
+                messagebox.showerror("Date Error","Invalid Check-Out Date")
+                
+    def payment():
+        payment_phno = phno_payment_entry.get()
+        if payment_phno in phno:
+            index = phno.index(payment_phno)
+            if p[index] == 0:
+                amount = (price[index] * day[index]) + rc[index]
+                messagebox.showinfo("Payment", "Total Amount: {}".format(amount))
+                data.append(amount)
+                payment_method = payment_method_var.get()
+                messagebox.showinfo("Payment", "Payment successful using {}.".format(payment_method))
+                p[index] = 1
+                roomno[index] = 0
+                custid[index] = 0    
+            else:
+                messagebox.showerror("Error", "Payment has already been made for this customer.")
+        else:
+            messagebox.showerror("Error", "Customer not found.")
+            
+    def feed_back():
+        feedback=fb_entry.get()
+        fb.append(feedback)
+        if feedback=="ADMIN07" :
+            messagebox.showinfo("Record",data)
+            root.destroy()
+        else:
+            messagebox.showinfo("DTS Hotel Booking","THANK YOU CHOOSING DTS HOTEL BOOKING APPLICATION :) ")
+            root.destroy()
+            
+    def clear_fields():
+        name_entry.delete(0, "end")
+        phno_entry.delete(0, "end")
+        add_entry.delete(0, "end")
+        perno_entry.delete(0, "end")
+        checkin_entry.delete(0, "end")
+        checkout_entry.delete(0, "end")
+        
+    def end():
+        messagebox.showinfo("DTS Hotel Booking","THANK YOU CHOOSING DTS HOTEL BOOKING APPLICATION")
+        root.destroy()
+    room_prices = {
+        "Standard Non-AC": 4000,
+        "Standard AC": 4500,
+        "3-Bed Non-AC": 5000,
+        "3-Bed AC": 5500}
+    booking_frame = tk.Frame(root, bg="black")
+    booking_frame.place(relx=0.5, rely=0.5, anchor="center")
+    title_label = tk.Label(booking_frame, text="DTS Hotel Booking System", bg="white", fg="black", font=("Verdana", 18,"bold"), pady=10)
+    title_label.grid(row=0, column=0, columnspan=2, sticky="n",pady=5)
+    name_label = tk.Label(booking_frame, text="Name:", bg="black", fg="white", font=("Verdana", 12), anchor="center")
+    name_label.grid(row=1, column=0, padx=10, pady=10, sticky="w")
+    name_entry = tk.Entry(booking_frame)
+    name_entry.grid(row=1, column=1, padx=10, pady=10, sticky="w")
+    phno_label = tk.Label(booking_frame, text="Phone No.:", bg="black", fg="white", font=("Verdana", 12), anchor="center")
+    phno_label.grid(row=2, column=0, padx=10, pady=10, sticky="w")
+    phno_entry = tk.Entry(booking_frame)
+    phno_entry.grid(row=2, column=1, padx=10, pady=10, sticky="w")
+    add_label = tk.Label(booking_frame, text="Address:", bg="black", fg="white", font=("Verdana", 12), anchor="center")
+    add_label.grid(row=3, column=0, padx=10, pady=10, sticky="w")
+    add_entry = tk.Entry(booking_frame)
+    add_entry.grid(row=3, column=1, padx=10, pady=10, sticky="w")
+    perno_label = tk.Label(booking_frame, text="No Of Persons:", bg="black", fg="white", font=("Verdana", 12), anchor="center")
+    perno_label.grid(row=4, column=0, padx=10, pady=10, sticky="w")
+    perno_entry = tk.Entry(booking_frame)
+    perno_entry.grid(row=4, column=1, padx=10, pady=10, sticky="w")
+    checkin_label = tk.Label(booking_frame, text="Check-In (dd/mm/yyyy):", bg="black", fg="white", font=("Verdana", 12), anchor="center")
+    checkin_label.grid(row=5, column=0, padx=10, pady=10, sticky="w")
+    checkin_entry = tk.Entry(booking_frame)
+    checkin_entry.grid(row=5, column=1, padx=10, pady=10, sticky="w")
+    checkout_label = tk.Label(booking_frame, text="Check-Out (dd/mm/yyyy):", bg="black", fg="white", font=("Verdana", 12), anchor="center")
+    checkout_label.grid(row=6, column=0, padx=10, pady=10, sticky="w")
+    checkout_entry = tk.Entry(booking_frame)
+    checkout_entry.grid(row=6, column=1, padx=10, pady=10, sticky="w")
+    room_type_label = tk.Label(booking_frame, text="Room Type:", bg="black", fg="white", font=("Verdana", 12), anchor="center")
+    room_type_label.grid(row=7, column=0, padx=10, pady=10, sticky="w")
+    room_type_var = tk.StringVar(booking_frame)
+    room_type_var.set("Standard Non-AC")
+    room_type_dropdown = tk.OptionMenu(booking_frame, room_type_var, *room_prices.keys())
+    room_type_dropdown.grid(row=7, column=1, padx=10, pady=10, sticky="w")
+    clear_button = tk.Button(booking_frame, text="Clear", command=clear_fields, bg="black", fg="white", font=("Verdana", 12), anchor="center", relief="raised")
+    clear_button.grid(row=8,column=0, padx=10, pady=10, sticky="w")
+    book_button = tk.Button(booking_frame, text="Book Room", command=booking, bg="black", fg="white", font=("Verdana", 12), anchor="center", relief="raised")
+    book_button.grid(row=8, column=1, padx=10, pady=10, sticky="w")
+    phno_payment_label = tk.Label(booking_frame, text="Phone No. (for payment):", bg="black", fg="white", font=("Verdana", 12), anchor="center")
+    phno_payment_label.grid(row=9, column=0, padx=10, pady=10, sticky="w")
+    phno_payment_entry = tk.Entry(booking_frame)
+    phno_payment_entry.grid(row=9, column=1, padx=10, pady=10, sticky="w")
+    payment_method_label = tk.Label(booking_frame, text="Payment Method:", bg="black", fg="white", font=("Verdana", 12), anchor="center")
+    payment_method_label.grid(row=10, column=0, padx=10, pady=10, sticky="w")
+    payment_method_var = tk.StringVar(booking_frame)
+    payment_method_var.set("Credit/Debit Card")
+    payment_method_dropdown = tk.OptionMenu(booking_frame, payment_method_var, "Credit/Debit Card", "Paytm/PhonePe", "UPI", "Cash")
+    payment_method_dropdown.grid(row=10, column=1, padx=10, pady=10, sticky="w")
+    pay_button = tk.Button(booking_frame, text="Make Payment", command=payment, bg="black", fg="white", font=("Verdana", 12), anchor="center", relief="raised")
+    pay_button.grid(row=11, column=1, padx=10, pady=10, sticky="w")
+    fb_label = tk.Label(booking_frame, text="Feedback:", bg="black", fg="white", font=("Verdana", 12), anchor="center")
+    fb_label.grid(row=12, column=0, padx=10, pady=10, sticky="w")
+    fb_entry = tk.Entry(booking_frame)
+    fb_entry.grid(row=12, column=1, padx=10, pady=10, sticky="w")
+    fb_button = tk.Button(booking_frame, text="Feedback", command=feed_back, bg="black", fg="white", font=("Verdana", 12), anchor="center", relief="raised")
+    fb_button.grid(row=13, column=0, padx=10, pady=10, sticky="w")
+    ex_button = tk.Button(booking_frame, text="Exit", command=end, bg="black", fg="white", font=("Verdana", 12), anchor="center", relief="raised")
+    ex_button.grid(row=13, column=1, padx=10, pady=5, sticky="w")
+root.mainloop()
