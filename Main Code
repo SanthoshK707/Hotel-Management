@@ -8,7 +8,6 @@ def start_button_click():
     sign()
     time.sleep(1)
     root_front.destroy()
-    
 root_front = tk.Tk()
 root_front.title("DTS Hotel Booking")
 root_front.configure(bg="black")
@@ -69,7 +68,6 @@ def sign():
         current_state = signup_password_entry.cget("show")
         new_state = "" if current_state else "*"
         signup_password_entry.config(show=new_state)
-        
     root_sign = tk.Tk()
     root_sign.title("DTS Hotel Booking")
     root_sign.configure(bg="black")
@@ -117,6 +115,11 @@ def sign():
         account_det_button.grid(row=8, column=0, columnspan=2, pady=10, sticky="w")
         contact_det_button = tk.Button(mainmenu_frame, text="CONTACT DETAILS", font=("Verdana", 15), command=contact_det,bg="black", fg="white", relief="raised")
         contact_det_button.grid(row=10, column=0, columnspan=2, pady=10, sticky="w")
+        back_button = tk.Button(mainmenu_frame, text="QUIT", command=back_main_menu, bg="black", fg="white", font=("Verdana", 15), anchor="center", relief="raised")
+        back_button.grid(row=12,column=0, padx=10, pady=10)
+
+    def back_main_menu():
+        root_main_menu.destroy()
 
     def room_det():
         global root_roomdet
@@ -134,7 +137,7 @@ def sign():
             Double-Door Cupboard, 1 Coffee table with 2 sofa, Balcony and
             an attached washroom with hot/cold water.
             ---------------------------------------------------------------
-            2)STANDARD NON-AC
+            2)STANDARD AC
             Room amenities include: 1 Double Bed, Television, Telephone,
             Double-Door Cupboard, 1 Coffee table with 2 sofa, Balcony and
             an attached washroom with hot/cold water + Window/Split AC.
@@ -330,13 +333,11 @@ def start_hotel_management():
     def end():
         messagebox.showinfo("DTS Hotel Booking","THANK YOU CHOOSING DTS HOTEL BOOKING APPLICATION")
         root.destroy()
-        
     room_prices = {
-        "Standard Non-AC": 4000,
-        "Standard AC": 4500,
-        "3-Bed Non-AC": 5000,
-        "3-Bed AC": 5500}
-    
+        "Standard Non-AC": 2000,
+        "Standard AC": 3000,
+        "3-Bed Non-AC": 4000,
+        "3-Bed AC": 5000}
     booking_frame = tk.Frame(root, bg="black")
     booking_frame.place(relx=0.5, rely=0.5, anchor="center")
     title_label = tk.Label(booking_frame, text="DTS Hotel Booking System", bg="white", fg="black", font=("Verdana", 18,"bold"), pady=10)
@@ -395,5 +396,4 @@ def start_hotel_management():
     fb_button.grid(row=13, column=0, padx=10, pady=10, sticky="w")
     ex_button = tk.Button(booking_frame, text="Exit", command=end, bg="black", fg="white", font=("Verdana", 12), anchor="center", relief="raised")
     ex_button.grid(row=13, column=1, padx=10, pady=5, sticky="w")
-
 root_front.mainloop()
