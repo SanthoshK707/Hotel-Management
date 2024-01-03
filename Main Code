@@ -7,14 +7,15 @@ from tkinter import messagebox
 def start_button_click():
     sign()
     time.sleep(1)
-    root.destroy()
-root = tk.Tk()
-root.title("DTS Hotel Booking")
-root.configure(bg="black")
-root.state('zoomed')
-heading_label = tk.Label(root, text="DTS Hotel Booking", font=("Verdana", 25), fg="white", bg="black", justify='center')
+    root_front.destroy()
+    
+root_front = tk.Tk()
+root_front.title("DTS Hotel Booking")
+root_front.configure(bg="black")
+root_front.state('zoomed')
+heading_label = tk.Label(root_front, text="DTS Hotel Booking", font=("Verdana", 25), fg="white", bg="black", justify='center')
 heading_label.pack(pady=20)
-heading_label = tk.Label(root, text="""Dear User,\n
+heading_label = tk.Label(root_front, text="""Dear User,\n
 Greetings from DTS! We are thrilled to extend a warm welcome to you as our esteemed guest for your upcoming stay.\n
 Thank you for choosing us as your preferred destination for accommodation, and we are excited to make your stay\n
 with us a truly memorable experience. At DTS, we understand that every guest is unique,and we are dedicated\n
@@ -23,14 +24,15 @@ and creating lasting happy memories during your stay in our hotel. If there's an
 us to arrange or if you have any special requests, please don't hesitate to contact us.\n\n
 Please click on Start to proceed.""", font=("Verdana", 15), fg="white", bg="black", justify='left')
 heading_label.pack(pady=20)
-star_button = tk.Button(root, text="Start",font=("Verdana", 17), command=start_button_click, fg="white", bg="black", width=20, justify='center',relief="raised")
-star_button.pack()
+start_button = tk.Button(root_front, text="Start",font=("Verdana", 17), command=start_button_click, fg="white", bg="black", width=20, justify='center',relief="raised")
+start_button.pack()
 
 def sign():
     aname=[]
     aage=[]
     auserid=[]
     apassword=[]
+    
     def on_signup_click():
         name = name_entry.get()
         aname.append(name)
@@ -61,65 +63,68 @@ def sign():
         messagebox.showinfo("Signup", "Signup successful")
         main_menu()
         time.sleep(1)
-        root.destroy()
+        root_sign.destroy()
         
     def show_password():
         current_state = signup_password_entry.cget("show")
         new_state = "" if current_state else "*"
         signup_password_entry.config(show=new_state)
-    root = tk.Tk()
-    root.title("DTS Hotel Booking")
-    root.configure(bg="black")
-    root.state('zoomed')
-    signup_frame = tk.Frame(root, bg="black")
+        
+    root_sign = tk.Tk()
+    root_sign.title("DTS Hotel Booking")
+    root_sign.configure(bg="black")
+    root_sign.state('zoomed')
+    signup_frame = tk.Frame(root_sign, bg="black")
     signup_frame.place(relx=0.5, rely=0.5, anchor="center")
     signup_label = tk.Label(signup_frame, text="Signup", font=("Verdana", 25, "bold"), bg="black", fg="white")
     signup_label.grid(row=0, column=0, columnspan=2, pady=10)
-    name_label = tk.Label(signup_frame,text="Name:", font=("Verdana", 20), bg="black", fg="white")
+    name_label = tk.Label(signup_frame,text="Name:", font=("Verdana", 15), bg="black", fg="white")
     name_label.grid(row=1, column=0, pady=10, padx=10, sticky="w")
-    name_entry = tk.Entry(signup_frame, font=("Verdana", 20))
+    name_entry = tk.Entry(signup_frame, font=("Verdana", 15))
     name_entry.grid(row=1, column=1, pady=10, padx=10)
-    age_label = tk.Label(signup_frame,text="Age:", font=("Verdana", 20), bg="black", fg="white")
+    age_label = tk.Label(signup_frame,text="Age:", font=("Verdana", 15), bg="black", fg="white")
     age_label.grid(row=2, column=0, pady=10, padx=10, sticky="w")
-    age_entry = tk.Entry(signup_frame, font=("Verdana", 20))
+    age_entry = tk.Entry(signup_frame, font=("Verdana", 15))
     age_entry.grid(row=2, column=1, pady=10, padx=10)
-    signup_userid_label = tk.Label(signup_frame, text="Email Id:", font=("Verdana", 20), bg="black", fg="white")
+    signup_userid_label = tk.Label(signup_frame, text="Email Id:", font=("Verdana", 15), bg="black", fg="white")
     signup_userid_label.grid(row=3, column=0, pady=10, padx=10, sticky="w")
-    signup_userid_entry = tk.Entry(signup_frame, font=("Verdana", 20))
+    signup_userid_entry = tk.Entry(signup_frame, font=("Verdana", 15))
     signup_userid_entry.grid(row=3, column=1, pady=10, padx=10)
-    signup_password_label = tk.Label(signup_frame, text="Password:", font=("Verdana", 20), bg="black", fg="white")
+    signup_password_label = tk.Label(signup_frame, text="Password:", font=("Verdana", 15), bg="black", fg="white")
     signup_password_label.grid(row=4, column=0, pady=10, padx=10, sticky="w")
-    signup_password_entry = tk.Entry(signup_frame, show="*", font=("Verdana", 20))
+    signup_password_entry = tk.Entry(signup_frame, show="*", font=("Verdana", 15))
     signup_password_entry.grid(row=4, column=1, pady=10, padx=10)
-    show_password_checkbox = tk.Checkbutton(signup_frame, text="Show Password", command=show_password,font=("Verdana", 20), bg="white", fg="black", indicatoron=False, relief="raised")
+    show_password_checkbox = tk.Checkbutton(signup_frame, text="Show Password", command=show_password,font=("Verdana", 15), bg="white", fg="black", indicatoron=False)
     show_password_checkbox.grid(row=6, column=0, columnspan=2, pady=10)
-    signup_button = tk.Button(signup_frame, text="Signup", font=("Verdana", 20), command=on_signup_click,bg="black", fg="white", relief="raised")
+    signup_button = tk.Button(signup_frame, text="Signup", font=("Verdana", 15), command=on_signup_click,bg="black", fg="white")
     signup_button.grid(row=7, column=0, columnspan=2, pady=10)
-    
+        
     def main_menu():
-        root = tk.Tk()
-        root.title("DTS Hotel Booking")
-        root.configure(bg="black")
-        root.state('zoomed')
-        mainmenu_frame = tk.Frame(root, bg="black")
+        global root_main_menu
+        root_main_menu = tk.Tk()
+        root_main_menu.title("DTS Hotel Booking")
+        root_main_menu.configure(bg="black")
+        root_main_menu.state('zoomed')
+        mainmenu_frame = tk.Frame(root_main_menu, bg="black")
         mainmenu_frame.place(relx=0.5, rely=0.5, anchor="center")
         mainmenu_label = tk.Label(mainmenu_frame, text="MAIN MENU", font=("Verdana", 25, "bold"), bg="black", fg="white")
         mainmenu_label.grid(row=2, column=0, columnspan=2, pady=10)
-        booking_room_button = tk.Button(mainmenu_frame, text="BOOKING ROOMS", font=("Verdana", 20), command=start_hotel_management,bg="black", fg="white", relief="raised")
+        booking_room_button = tk.Button(mainmenu_frame, text="BOOKING ROOMS", font=("Verdana", 15), command=start_hotel_management,bg="black", fg="white", relief="raised")
         booking_room_button.grid(row=4, column=0, columnspan=2, pady=10, sticky="w")
-        room_det_button = tk.Button(mainmenu_frame, text="ROOM DETAILS", font=("Verdana", 20), command=room_det,bg="black", fg="white", relief="raised")
+        room_det_button = tk.Button(mainmenu_frame, text="ROOM DETAILS", font=("Verdana", 15), command=room_det,bg="black", fg="white", relief="raised")
         room_det_button.grid(row=6, column=0, columnspan=2, pady=10, sticky="w")
-        account_det_button = tk.Button(mainmenu_frame, text="ACCOUNT DETAILS", font=("Verdana", 20), command=account_det,bg="black", fg="white", relief="raised")
+        account_det_button = tk.Button(mainmenu_frame, text="ACCOUNT DETAILS", font=("Verdana", 15), command=account_det,bg="black", fg="white", relief="raised")
         account_det_button.grid(row=8, column=0, columnspan=2, pady=10, sticky="w")
-        contact_det_button = tk.Button(mainmenu_frame, text="CONTACT DETAILS", font=("Verdana", 20), command=contact_det,bg="black", fg="white", relief="raised")
+        contact_det_button = tk.Button(mainmenu_frame, text="CONTACT DETAILS", font=("Verdana", 15), command=contact_det,bg="black", fg="white", relief="raised")
         contact_det_button.grid(row=10, column=0, columnspan=2, pady=10, sticky="w")
-        
+
     def room_det():
-        root = tk.Tk()
-        root.title("DTS Hotel Booking")
-        root.configure(bg="black")
-        root.state('zoomed')
-        roomdet_frame = tk.Frame(root, bg="black")
+        global root_roomdet
+        root_roomdet = tk.Tk()
+        root_roomdet.title("DTS Hotel Booking")
+        root_roomdet.configure(bg="black")
+        root_roomdet.state('zoomed')
+        roomdet_frame = tk.Frame(root_roomdet, bg="black")
         roomdet_frame.place(relx=0.5, rely=0.5, anchor="center")
         roomdet_label = tk.Label(roomdet_frame, text="ROOM DETAILS", font=("Verdana", 25, "bold"), bg="black", fg="white")
         roomdet_label.grid(row=0, column=0, columnspan=2, pady=10)
@@ -145,15 +150,21 @@ def sign():
             Telephone, a Triple-Door Cupboard, 1 Coffee table with 2 sofa,
             1 Side table, Balcony with an Accent table with 2 Chair and an
             attached washroom with hot/cold water + Window/Split AC.
-            ---------------------------------------------------------------""",font=("Verdana", 15), fg="white", bg="black")
+            ---------------------------------------------------------------""",font=("Verdana", 12), fg="white", bg="black")
         room_det1_label.grid(row=2, column=0, columnspan=2, pady=10, sticky="w")
+        back_button = tk.Button(roomdet_frame, text="Back", command=backroomdet, bg="black", fg="white", font=("Verdana", 12), anchor="center", relief="raised")
+        back_button.grid(row=7,column=0, padx=10, pady=10, sticky="w")
+
+    def backroomdet():
+        root_roomdet.destroy()
         
     def account_det():
-        root = tk.Tk()
-        root.title("DTS Hotel Booking")
-        root.configure(bg="black")
-        root.state('zoomed')
-        accountdet_frame = tk.Frame(root, bg="black")
+        global root_account_det
+        root_account_det = tk.Tk()
+        root_account_det.title("DTS Hotel Booking")
+        root_account_det.configure(bg="black")
+        root_account_det.state('zoomed')
+        accountdet_frame = tk.Frame(root_account_det, bg="black")
         accountdet_frame.place(relx=0.5, rely=0.5, anchor="center")
         accountdet_label = tk.Label(accountdet_frame, text="ACCOUNT DETAILS", font=("Verdana", 25, "bold"), bg="black", fg="white")
         accountdet_label.grid(row=0, column=0, columnspan=2, pady=10)
@@ -165,13 +176,19 @@ def sign():
         account_det_label.grid(row=6,column=0, columnspan=2, pady=10, sticky="w")
         account_det_label = tk.Label(accountdet_frame, text=apassword, font=("Verdana", 18), fg="white", bg="black", justify='left')
         account_det_label.grid(row=8,column=0, columnspan=2, pady=10, sticky="w")
+        back_button = tk.Button(accountdet_frame, text="Back", command=backaccdet, bg="black", fg="white", font=("Verdana", 12), anchor="center", relief="raised")
+        back_button.grid(row=10,column=0, padx=10, pady=10, sticky="w")
+
+    def backaccdet():
+        root_account_det.destroy()
         
     def contact_det():
-        root = tk.Tk()
-        root.title("DTS Hotel Booking")
-        root.configure(bg="black")
-        root.state('zoomed')
-        contactdet_frame = tk.Frame(root, bg="black")
+        global root_contact_det
+        root_contact_det = tk.Tk()
+        root_contact_det.title("DTS Hotel Booking")
+        root_contact_det.configure(bg="black")
+        root_contact_det.state('zoomed')
+        contactdet_frame = tk.Frame(root_contact_det, bg="black")
         contactdet_frame.place(relx=0.5, rely=0.5, anchor="center")
         contactdet_label = tk.Label(contactdet_frame, text="CONTACT DETAILS", font=("Verdana", 25, "bold"), bg="black", fg="white")
         contactdet_label.grid(row=0, column=0, columnspan=2, pady=10)
@@ -182,6 +199,11 @@ def sign():
                                Madipakkam, Chennai-600091\n
               ''', font=("Verdana", 18), fg="white", bg="black", justify='left')
         contact_det_label.grid(row=3,column=0, columnspan=2, pady=10, sticky="w")
+        back_button = tk.Button(contactdet_frame, text="Back", command=backroomcon, bg="black", fg="white", font=("Verdana", 12), anchor="center", relief="raised")
+        back_button.grid(row=9,column=0, padx=10, pady=10, sticky="w")
+
+    def backroomcon():
+        root_contact_det.destroy()
         
 def start_hotel_management():
     root = tk.Tk()
@@ -308,38 +330,40 @@ def start_hotel_management():
     def end():
         messagebox.showinfo("DTS Hotel Booking","THANK YOU CHOOSING DTS HOTEL BOOKING APPLICATION")
         root.destroy()
+        
     room_prices = {
         "Standard Non-AC": 4000,
         "Standard AC": 4500,
         "3-Bed Non-AC": 5000,
         "3-Bed AC": 5500}
+    
     booking_frame = tk.Frame(root, bg="black")
     booking_frame.place(relx=0.5, rely=0.5, anchor="center")
     title_label = tk.Label(booking_frame, text="DTS Hotel Booking System", bg="white", fg="black", font=("Verdana", 18,"bold"), pady=10)
     title_label.grid(row=0, column=0, columnspan=2, sticky="n",pady=5)
     name_label = tk.Label(booking_frame, text="Name:", bg="black", fg="white", font=("Verdana", 12), anchor="center")
     name_label.grid(row=1, column=0, padx=10, pady=10, sticky="w")
-    name_entry = tk.Entry(booking_frame)
+    name_entry = tk.Entry(booking_frame, font=("Verdana", 13))
     name_entry.grid(row=1, column=1, padx=10, pady=10, sticky="w")
     phno_label = tk.Label(booking_frame, text="Phone No.:", bg="black", fg="white", font=("Verdana", 12), anchor="center")
     phno_label.grid(row=2, column=0, padx=10, pady=10, sticky="w")
-    phno_entry = tk.Entry(booking_frame)
+    phno_entry = tk.Entry(booking_frame, font=("Verdana", 13))
     phno_entry.grid(row=2, column=1, padx=10, pady=10, sticky="w")
     add_label = tk.Label(booking_frame, text="Address:", bg="black", fg="white", font=("Verdana", 12), anchor="center")
     add_label.grid(row=3, column=0, padx=10, pady=10, sticky="w")
-    add_entry = tk.Entry(booking_frame)
+    add_entry = tk.Entry(booking_frame, font=("Verdana", 13))
     add_entry.grid(row=3, column=1, padx=10, pady=10, sticky="w")
     perno_label = tk.Label(booking_frame, text="No Of Persons:", bg="black", fg="white", font=("Verdana", 12), anchor="center")
     perno_label.grid(row=4, column=0, padx=10, pady=10, sticky="w")
-    perno_entry = tk.Entry(booking_frame)
+    perno_entry = tk.Entry(booking_frame, font=("Verdana", 13))
     perno_entry.grid(row=4, column=1, padx=10, pady=10, sticky="w")
     checkin_label = tk.Label(booking_frame, text="Check-In (dd/mm/yyyy):", bg="black", fg="white", font=("Verdana", 12), anchor="center")
     checkin_label.grid(row=5, column=0, padx=10, pady=10, sticky="w")
-    checkin_entry = tk.Entry(booking_frame)
+    checkin_entry = tk.Entry(booking_frame, font=("Verdana", 13))
     checkin_entry.grid(row=5, column=1, padx=10, pady=10, sticky="w")
     checkout_label = tk.Label(booking_frame, text="Check-Out (dd/mm/yyyy):", bg="black", fg="white", font=("Verdana", 12), anchor="center")
     checkout_label.grid(row=6, column=0, padx=10, pady=10, sticky="w")
-    checkout_entry = tk.Entry(booking_frame)
+    checkout_entry = tk.Entry(booking_frame, font=("Verdana", 13))
     checkout_entry.grid(row=6, column=1, padx=10, pady=10, sticky="w")
     room_type_label = tk.Label(booking_frame, text="Room Type:", bg="black", fg="white", font=("Verdana", 12), anchor="center")
     room_type_label.grid(row=7, column=0, padx=10, pady=10, sticky="w")
@@ -353,7 +377,7 @@ def start_hotel_management():
     book_button.grid(row=8, column=1, padx=10, pady=10, sticky="w")
     phno_payment_label = tk.Label(booking_frame, text="Phone No. (for payment):", bg="black", fg="white", font=("Verdana", 12), anchor="center")
     phno_payment_label.grid(row=9, column=0, padx=10, pady=10, sticky="w")
-    phno_payment_entry = tk.Entry(booking_frame)
+    phno_payment_entry = tk.Entry(booking_frame, font=("Verdana", 13))
     phno_payment_entry.grid(row=9, column=1, padx=10, pady=10, sticky="w")
     payment_method_label = tk.Label(booking_frame, text="Payment Method:", bg="black", fg="white", font=("Verdana", 12), anchor="center")
     payment_method_label.grid(row=10, column=0, padx=10, pady=10, sticky="w")
@@ -365,10 +389,11 @@ def start_hotel_management():
     pay_button.grid(row=11, column=1, padx=10, pady=10, sticky="w")
     fb_label = tk.Label(booking_frame, text="Feedback:", bg="black", fg="white", font=("Verdana", 12), anchor="center")
     fb_label.grid(row=12, column=0, padx=10, pady=10, sticky="w")
-    fb_entry = tk.Entry(booking_frame)
+    fb_entry = tk.Entry(booking_frame, font=("Verdana", 13))
     fb_entry.grid(row=12, column=1, padx=10, pady=10, sticky="w")
     fb_button = tk.Button(booking_frame, text="Feedback", command=feed_back, bg="black", fg="white", font=("Verdana", 12), anchor="center", relief="raised")
     fb_button.grid(row=13, column=0, padx=10, pady=10, sticky="w")
     ex_button = tk.Button(booking_frame, text="Exit", command=end, bg="black", fg="white", font=("Verdana", 12), anchor="center", relief="raised")
     ex_button.grid(row=13, column=1, padx=10, pady=5, sticky="w")
-root.mainloop()
+
+root_front.mainloop()
