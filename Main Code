@@ -229,7 +229,6 @@ def start_hotel_management():
     day = []
     fb = []
     i=0
-    
     def date_validator(date_str):
         try:
             datetime.datetime.strptime(date_str, '%d/%m/%Y')
@@ -273,7 +272,8 @@ def start_hotel_management():
         checkout.append(coo)
         currentdate=str(datetime.datetime.now())
         findate=currentdate[0:11]
-        if str(datetime.datetime.strptime(cii,'%d/%m/%Y'))<str(findate):
+        checkindate = str(datetime.datetime.strptime(cii,'%d/%m/%Y'))
+        if checkindate[0:11]<str(findate):
             messagebox.showerror("Date Error","Invalid Check-In Date")
         else:
             ci = datetime.datetime.strptime(cii, '%d/%m/%Y')
@@ -397,3 +397,4 @@ def start_hotel_management():
     ex_button = tk.Button(booking_frame, text="Exit", command=end, bg="black", fg="white", font=("Verdana", 12), anchor="center", relief="raised")
     ex_button.grid(row=13, column=1, padx=10, pady=5, sticky="w")
 root_front.mainloop()
+ 
